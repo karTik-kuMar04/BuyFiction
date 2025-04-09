@@ -10,12 +10,14 @@ import User from './Components/MainContent/User.jsx'
 import WishList from './Components/MainContent/WishList.jsx'
 import { allBooks } from './Components/Products/mangaProducts.js'
 import Book from './Components/MainContent/Book.jsx'
+import Web from './Components/MainContent/Web.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {path:"", element: <Web />},
       {path:"home", element: <Home />},
       {path:"search", element: <Search />},
       {path:"cart", element: <Cart />},

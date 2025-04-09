@@ -2,22 +2,24 @@ import { NavLink, useLocation } from "react-router-dom";
 import { HiHome } from "react-icons/hi";
 import { FaSearch, FaBook, FaRegHeart, FaUser } from "react-icons/fa";
 import { useState } from "react";
+import { cartProduct } from "../Products/mangaProducts";
 
 function Header() {
+  const cartNum = cartProduct.length
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const navItems = [
     { path: "/home", icon: <HiHome />, label: "Home" },
     { path: "/search", icon: <FaSearch />, label: "Search" },
-    { path: "/cart", icon: <FaBook />, label: "Cart", badge: 0 },
+    { path: "/cart", icon: <FaBook />, label: "Cart", badge: cartNum},
     { path: "/wishlist", icon: <FaRegHeart />, label: "WishList" },
     { path: "/user", icon: <FaUser />, label: "My Space" },
   ];
 
   return (
     <div
-      className={`fixed top-0 left-0 h-full transition-all duration-300 bg-[#000000] hover:bg-[#23222263] z-50 shadow-lg ${
+      className={`fixed top-0 left-0 h-full transition-transform duration-800 bg-[#000000] hover:bg-[#23222263] z-50 shadow-lg ${
         isExpanded ? "w-[200px]" : "w-[70px]"
       }`}
       onMouseEnter={() => setIsExpanded(true)}
@@ -35,21 +37,24 @@ function Header() {
                 >
                   <div className="absolute inset-0 bg-white opacity-20 w-10 h-10 blur-md scale-125 hidden group-hover:block"></div>
 
-                  <div
-                    className={`relative text-2xl ${
-                      isActive || isExpanded
-                        ? "text-white drop-shadow-[0_0_6px_white]"
-                        : "text-white"
-                    }`}
-                  >
-                    {icon}
+                  <div className="relative">
+                    <div
+                      className={` text-2xl ${
+                        isActive || isExpanded
+                          ? "text-white drop-shadow-[0_0_6px_white]"
+                          : "text-white"
+                      }`}
+                    >
+                      {icon}
+                    </div>
+
+                    {badge > 0 && (
+                      <span className="absolute -top-3 -right-3 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                        {badge}
+                      </span>
+                    )}
                   </div>
 
-                  {badge > 0 && (
-                    <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                      {badge}
-                    </span>
-                  )}
                   {isExpanded && (
                     <div
                       className={`ml-4 text-[18px] font-bold ${
