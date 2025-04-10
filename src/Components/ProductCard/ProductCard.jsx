@@ -4,6 +4,8 @@ import StarRating from '../Products/starRating';
 import { latestBooks } from '../Products/mangaProducts';
 import { Link } from 'react-router-dom';
 import AddToCart from '../Functions/AddToCart';
+import imgNotFound from '../../assets/img-notfound.jpg';
+
 
 
 function CardType1({book, index}) {
@@ -14,7 +16,14 @@ function CardType1({book, index}) {
       <div className='max-w-[170px] h-full  px-[10px] py-[10px] ' >
         {/* Book Image */}
         <div className='flex justify-center border-1 border-white'>
-          <img src={book.image} className='w-[150px] h-[170px]' alt={book.name} />
+         
+          <img 
+            src={book.image} 
+            className='w-[150px] h-[170px]' 
+            alt={book.name} 
+            onError={(e) => { e.target.onerror = null; e.target.src = imgNotFound; }}
+          /> 
+         
         </div>
 
         {/* Book Details */}
@@ -74,7 +83,11 @@ function CardType2({book, index, onAddtoCart}) {
 
       <Link to={`/book/${book.id}`}>
         {/* Book Image */}
-        <div><img src={book.image} className='w-[200px] h-[300px] rounded-2xl' /></div>
+        <div>
+          <img src={book.image} className='w-[200px] h-[300px] rounded-2xl' 
+            onError={(e) => { e.target.onerror = null; e.target.src = imgNotFound; }}
+          />
+        </div>
       </Link>
 
 
