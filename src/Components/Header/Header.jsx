@@ -1,18 +1,30 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { HiHome } from "react-icons/hi";
 import { FaSearch, FaBook, FaRegHeart, FaUser } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cartProduct } from "../Products/mangaProducts";
 
 function Header() {
-  const cartNum = cartProduct.length
+  
+  const [cartCount, setCartCount] = useState(cartProduct.length)
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(()=>{
+    const interval = setInterval(()=> {
+      if(cartProduct.length !== cartCount) {
+        setCartCount(cartProduct.length)
+      }
+    }, 500)
+    
+    return () => clearInterval(interval);
+    
+  },[cartCount])
 
   const navItems = [
     { path: "/home", icon: <HiHome />, label: "Home" },
     { path: "/search", icon: <FaSearch />, label: "Search" },
-    { path: "/cart", icon: <FaBook />, label: "Cart", badge: cartNum},
+    { path: "/cart", icon: <FaBook />, label: "Cart", badge: cartCount},
     { path: "/wishlist", icon: <FaRegHeart />, label: "WishList" },
     { path: "/user", icon: <FaUser />, label: "My Space" },
   ];

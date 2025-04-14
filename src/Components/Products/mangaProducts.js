@@ -9,7 +9,8 @@ const allBooks = [
     "image": "https://m.media-amazon.com/images/I/81wM7mD4gML.jpg",
     "publisher": "Square Enix",
     "rating": 3.8,
-    "ratedBy": 7546
+    "ratedBy": 7546,
+    "isbn10": "111111111111111111"
   },
   {
     "id": "614054dd",
@@ -17,11 +18,12 @@ const allBooks = [
     "author": "Sui Ishida",
     "pages": 274,
     "price": 888,
-    "stock": 16,
+    "stock": 10,
     "image": "https://m.media-amazon.com/images/I/91bYsX41DVL.jpg",
     "publisher": "Shogakukan",
     "rating": 4.6,
-    "ratedBy": 43202
+    "ratedBy": 43202,
+    "illustrator": "kartik"
   },
   {
     "id": "c2b6e66f",

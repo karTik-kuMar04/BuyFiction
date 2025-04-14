@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import imgNotFound from "../../assets/img-notfound.jpg";
+import { cartProduct } from '../Products/mangaProducts';
 
-function CartProductCard({ book, quantity, onQuantityChange }) {
+function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {
   const handleChange = (e) => {
     onQuantityChange(book.id, parseInt(e.target.value));
   };
@@ -48,7 +49,12 @@ function CartProductCard({ book, quantity, onQuantityChange }) {
           </div>
         </div>
         <div className='flex items-center mr-[20px]'>
-          <button className='px-[10px] py-[4px] bg-red-600 text-white font-semibold rounded-md'>Remove</button>
+          <button  
+            className='px-[10px] py-[4px] bg-red-600 text-white font-semibold rounded-md'
+            onClick={() => onRemove(book.id)}
+          >
+            Remove
+          </button>
         </div>
       </div>
     </div>

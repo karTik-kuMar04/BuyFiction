@@ -1,4 +1,4 @@
-import React, { Component, use, useState } from 'react'
+import React, { Component, useState } from 'react'
 import { FaStar, FaRegStar } from "react-icons/fa";
 import StarRating from '../Products/starRating';
 import { latestBooks } from '../Products/mangaProducts';
