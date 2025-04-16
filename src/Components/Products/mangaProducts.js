@@ -6005,8 +6005,7 @@ const allBooks = [
 
 const latestBooks = allBooks.slice(0, 50); // or select based on releaseDate
 const trendingBooks = allBooks.slice(50, 100); // or select based on rating or popularity
-const cartProduct = [
-  
-]
-export { allBooks, latestBooks, trendingBooks, cartProduct };
+const cartProduct = []
+const wishList = []
+export { allBooks, latestBooks, trendingBooks, cartProduct, wishList };
 

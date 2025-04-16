@@ -5,6 +5,7 @@ import { latestBooks } from '../Products/mangaProducts';
 import { Link } from 'react-router-dom';
 import AddToCart from '../Functions/AddToCart';
 import imgNotFound from '../../assets/img-notfound.jpg';
+import addToWList from '../Functions/addToWishlist';
 
 
 
@@ -168,7 +169,10 @@ function CardType2({book, index, onAddtoCart}) {
         {!added && (
           <button 
             className='bg-white text-black text-xl font-semibold px-6 py-2 rounded-md hover:bg-gray-200'
-            onClick={handleAdd}
+            onClick={()=>{
+              addToWList(book)
+              handleAdd()
+            }}
           >
             Add to Wishlist
           </button>

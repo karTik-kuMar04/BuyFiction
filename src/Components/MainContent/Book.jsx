@@ -14,6 +14,7 @@ import { TbTruckReturn } from "react-icons/tb";
 import { LiaCertificateSolid } from "react-icons/lia";
 import { RiRefund2Fill } from "react-icons/ri";
 import { FaTruckFast } from "react-icons/fa6";
+import addToWList from "../Functions/addToWishlist";
 
 function Book({onAddtoCart}) {
   const { id } = useParams()
@@ -309,7 +310,10 @@ function Book({onAddtoCart}) {
             {!added && (
               <button
                 className='flex justify-center bg-white text-black text-xl font-semibold px-6 py-2 rounded-md  w-[300px] hover:bg-gray-200'
-                onClick={handleAdd}
+                onClick={()=>{
+                  addToWList(book)
+                  handleAdd()
+                }}
               >
                 Add to Wishlist
               </button>

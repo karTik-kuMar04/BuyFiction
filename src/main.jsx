@@ -11,6 +11,8 @@ import WishList from './Components/MainContent/WishList.jsx'
 import { allBooks } from './Components/Products/mangaProducts.js'
 import Book from './Components/MainContent/Book.jsx'
 import Web from './Components/MainContent/Web.jsx'
+import Buy from './Components/MainContent/buy.jsx'
+import Layout2 from './Layout2.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,8 +25,13 @@ const router = createBrowserRouter([
       {path:"cart", element: <Cart />},
       {path:"user", element: <User />},
       {path:"wishlist", element: <WishList />},
-      {path: "book/:id", element: <Book />}
+      {path: "book/:id", element: <Book />},
+      
     ]
+  },
+  {
+    path: "/buy/:id",
+    element: <Buy />
   }
 ])
 
