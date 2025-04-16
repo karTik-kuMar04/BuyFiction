@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import AddToCart from "../Functions/AddToCart";
 import { allBooks } from "../Products/mangaProducts";
 import { useParams } from "react-router-dom";
-import imgNotFound from "../../assets/img-notfound.jpg"
+import imgNotFound from "assets/img-notfound.jpg"
 import StarRating from "../Products/starRating";
 import Cart from "./Cart";
 import { FaBarcode } from "react-icons/fa";
