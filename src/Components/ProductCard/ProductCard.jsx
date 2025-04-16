@@ -4,7 +4,7 @@ import StarRating from '../Products/starRating';
 import { latestBooks } from '../Products/mangaProducts';
 import { Link } from 'react-router-dom';
 import AddToCart from '../Functions/AddToCart';
-import imgNotFound from '../../assets/img-notfound.jpg';
+import imgNotFound from "/assets/img-notfound.jpg";
 import addToWList from '../Functions/addToWishlist';
 
 

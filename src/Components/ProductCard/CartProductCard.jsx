@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import imgNotFound from "../../assets/img-notfound.jpg";
+import imgNotFound from "/assets/img-notfound.jpg";
 import { cartProduct } from '../Products/mangaProducts';
 
 function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {

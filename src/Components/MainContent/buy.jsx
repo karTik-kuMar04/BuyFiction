@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { allBooks } from '../Products/mangaProducts';
-import imgNotFound from "assets/img-notfound.jpg";
+import imgNotFound from "/assets/img-notfound.jpg";
 import emailjs from 'emailjs-com';
 
 function Buy() {

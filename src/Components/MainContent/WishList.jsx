@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react'
 import { wishList as initallwishlist } from '../Products/mangaProducts';
-import imgNotFound from"assets/img-notfound.jpg"
+import imgNotFound from "/assets/img-notfound.jpg";
 
 function WishList () {
   const [wishlist, setWishlist] = useState(initallwishlist)
