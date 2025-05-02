@@ -13,45 +13,48 @@ function CardType1({book, index}) {
   
 
   return (
-    <Link to={`/book/${book.id}`} className="no-underline">
-      <div className='max-w-[170px] h-full  px-[10px] py-[10px] ' >
+    <Link to={`/book/${book.id}`} className="no-underline ">
+      <div className="w-[200px] h-full px-[10px] py-[10px] bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300">
         {/* Book Image */}
-        <div className='flex justify-center border-1 border-white'>
-         
-          <img 
-            src={book.image} 
-            className='w-[150px] h-[170px]' 
-            alt={book.name} 
-            onError={(e) => { e.target.onerror = null; e.target.src = imgNotFound; }}
-          /> 
-         
+        <div className="flex justify-center">
+          <img
+            src={book.image}
+            className="w-[150px] h-full rounded-md"
+            alt={book.name}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = imgNotFound;
+            }}
+          />
         </div>
-
+  
         {/* Book Details */}
-        <div className='flex flex-col text-gray-300 gap-1 font-bold'>
-
-          {/* Centered and Wrapped Book Name */}
-          <div className=' text-center'>
+        <div className="flex flex-col gap-1 font-bold text-black mt-2">
+          {/* Book Name */}
+          <div className="text-center text-sm line-clamp-2 h-[40px]">
             {book.name}
           </div>
-
+  
           {/* Author Name */}
-          <span className='flex justify-center'>{book.author}</span>
-
+          <span className="flex justify-center text-xs text-gray-600">
+            {book.author}
+          </span>
+  
           {/* Star Rating */}
-          <span className='flex justify-center mt-2'>
+          <span className="flex justify-center mt-2">
             <StarRating rating={book.rating} />
           </span>
-
+  
           {/* Price */}
-          <div className='flex items-center justify-center'>
-            <span className='text-green-500 text-[28px]'>₹</span>
-            <p className='text-white text-[20px]'>{book.price}</p>
+          <div className="flex items-center justify-center mt-2">
+            <span className="text-green-600 text-lg font-semibold">₹</span>
+            <p className="text-lg font-semibold">{book.price}</p>
           </div>
         </div>
       </div>
     </Link>
   );
+  
 }
 
 function CardType2({book, index, onAddtoCart}) {
@@ -80,7 +83,7 @@ function CardType2({book, index, onAddtoCart}) {
 
 
   return (
-    <div className='border-1 border-t-gray-400  flex flex-row py-6 pl-6' >
+    <div className='  flex flex-row py-6 pl-6' >
 
       <Link to={`/book/${book.id}`}>
         {/* Book Image */}

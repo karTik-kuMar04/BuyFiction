@@ -23,7 +23,6 @@ const router = createBrowserRouter([
       {path:"home", element: <Home />},
       {path:"search", element: <Search />},
       {path:"cart", element: <Cart />},
-      {path:"user", element: <User />},
       {path:"wishlist", element: <WishList />},
       {path: "book/:id", element: <Book />},
       
@@ -32,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/buy/:id",
     element: <Buy />
+  },
+  {
+    path: "/user",
+    element: <User />
   }
 ])
 
