@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CartProductCard from '../ProductCard/CartProductCard';
 import { cartProduct as initialCart } from '../Products/mangaProducts';
 import { Link } from 'react-router-dom';
 
 function Cart() {
-  const [cartItems, setCartItems] = useState(initialCart); // ✅ create state
+  const [cartItems, setCartItems] = useState(()=>{
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : initialCart;
+  });
+
+  useEffect(()=>{
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+    window.dispatchEvent(new Event("cartUpdated"));
+  },[cartItems])
+
+
   const [quantities, setQuantities] = useState(() => {
     const initial = {};
     initialCart.forEach(book => {

@@ -1,18 +1,17 @@
 import { cartProduct } from "../Products/mangaProducts";
 
-function AddToCart( book ) {
-  // Check if the book is already in the cart
-  const existingProduct = cartProduct.find(item => item.id === book.id);
+const AddToCart = (book) => {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  if (!existingProduct) {
-    // Add new book to cart with quantity 1
-    cartProduct.push({ ...book, quantity: 1 });
-    console.log(`✅ Book "${book.name}" added to cart.`);
+  const isAlreadyInCart = cart.find(item => item.id === book.id);
+
+  if (!isAlreadyInCart) {
+    const updatedCart = [...cart, { ...book, quantity: 1 }];
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    alert("Added to Cart");
   } else {
-    console.log(`⚠️ Book "${book.name}" is already in the cart.`);
+    alert("Already in cart");
   }
-
-  console.log(cartProduct); // See the current state of the cart
-}
+};
 
 export default AddToCart;

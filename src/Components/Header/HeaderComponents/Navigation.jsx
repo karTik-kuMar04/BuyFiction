@@ -6,18 +6,26 @@ import { cartProduct } from "../../Products/mangaProducts";
 
 function NavigationBtn() {
   
-  const[cartCount, setCartCount] = useState(null)
+  const [cartCount, setCartCount] = useState(0);
 
-  useEffect(()=>{
-    const interval = setInterval(()=> {
-      if(cartProduct.length !== cartCount) {
-        setCartCount(cartProduct.length)
-      }
-    }, 500)
-    
-    return () => clearInterval(interval);
-    
-  },[cartCount])
+  // Fetch cart count from localStorage
+  const updateCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartCount(cart.length);
+  };
+
+  useEffect(() => {
+    updateCartCount(); // initial load
+
+    // Optional: listen for localStorage updates
+    const handleCartUpdate = () => {
+      updateCartCount();
+    };
+
+    window.addEventListener("cartUpdated", handleCartUpdate); // 👈 listen to custom event
+
+    return () => window.removeEventListener("cartUpdated", handleCartUpdate);
+  }, []);
 
   const navItems = [
     { path: "/home", icon: <HiHome />, label: "Home" },

@@ -44,7 +44,7 @@ function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {
               </select>
             </div>
             <div className="text-green-400 text-lg font-bold">
-              ₹{book.price * quantity}
+              ₹{quantity > 0 ? book.price * quantity : book.price}
             </div>
           </div>
         </div>
