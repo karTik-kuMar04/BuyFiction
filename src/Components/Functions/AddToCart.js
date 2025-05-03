@@ -8,9 +8,7 @@ const AddToCart = (book) => {
   if (!isAlreadyInCart) {
     const updatedCart = [...cart, { ...book, quantity: 1 }];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    alert("Added to Cart");
-  } else {
-    alert("Already in cart");
+    
   }
 };
 
