@@ -29,7 +29,7 @@ function WishlistCard({ book, onRemove, onAddtoCart }) {
             Add to Cart
           </button>
           <button
-            onClick={() => onRemove(book)}
+            onClick={() => onRemove(book.id)}
             className="bg-red-600 hover:bg-red-500 text-white px-4 py-1 rounded flex items-center gap-2"
           >
             <FaHeartBroken />

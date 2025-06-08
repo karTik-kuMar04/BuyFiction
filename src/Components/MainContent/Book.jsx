@@ -43,7 +43,7 @@ function Book({onAddtoCart}) {
     }
   }
   return (
-    <div className=" text-white  ml-[200px] mt-[100px]">
+    <div className="ml-[50px] mt-[200px]">
       <div className="flex flex-col">
         {/* book details */}
         <div className="flex">
@@ -184,12 +184,31 @@ function Book({onAddtoCart}) {
             </div>
           </div>
         </div>
+
+        {/* book description */}
+        <div className="mt-[50px] px-[100px] mb-[50px]">
+          <div className="border-1 border-gray-600 rounded-2xl p-5">
+            <span
+              className="text-xl font-semibold font-serif text-[#DB5ABA]"
+            >
+              {book.headline ? book.headline : "Random Headline That i made myself"}
+            </span>
+            <p className="font-mono">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Earum facilis ipsa qui ad maxime nobis voluptatibus tempora quasi explicabo laudantium
+              ratione fuga suscipit, veniam ipsum culpa enim aut eius beatae.
+            </p>
+          </div>
+        </div>
+
+
+
         {/* book physical details */}
         <div
           className="flex justify-center "
         >
           <div
-            className="flex flex-row justify-center gap-19 border-gray-400 border-t border-b px-[20px] py-[10px] mt-10"
+            className="flex flex-row justify-center gap-19 border-gray-400 border-t-2 border-b-2 px-[20px] py-[10px] mt-10"
           >
             <div className="flex flex-col justify-center items-center gap-3 ">
               <span>
@@ -283,7 +302,7 @@ function Book({onAddtoCart}) {
         </div>
 
         {/* buttons */}
-        <div className='text-white mt-10 flex justify-center'>
+        <div className='text-black mt-10 flex justify-center'>
           <div className="flex flex-col gap-2 border border-gray-700 bg-gray-900 px-[80px] py-[50px] rounded-lg">
 
             <Link className='flex justify-center  bg-green-700 text-xl font-semibold px-6 py-2 rounded-md  w-[300px] hover:bg-green-600'
@@ -329,15 +348,7 @@ function Book({onAddtoCart}) {
 
         </div>
 
-        <div className="mt-[50px] px-[100px] mb-[50px]">
-          <div className="px-[20px] border-t border-b border-gray-600">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Earum facilis ipsa qui ad maxime nobis voluptatibus tempora quasi explicabo laudantium
-              ratione fuga suscipit, veniam ipsum culpa enim aut eius beatae.
-            </p>
-          </div>
-        </div>
+        
       </div>
     </div>
   )

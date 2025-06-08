@@ -6006,6 +6006,20 @@ const allBooks = [
 const latestBooks = allBooks.slice(0, 50); // or select based on releaseDate
 const trendingBooks = allBooks.slice(50, 100); // or select based on rating or popularity
 const cartProduct = []
-const wishList = []
+const wishList = [ 
+  {
+    "id": "4a7b49d0",
+    "name": "Dr. Stone - Volume 20",
+    "author": "Koyoharu Gotouge",
+    "pages": 273,
+    "price": 663,
+    "stock": 17,
+    "image": "https://m.media-amazon.com/images/I/81wM7mD4gML.jpg",
+    "publisher": "Square Enix",
+    "rating": 3.8,
+    "ratedBy": 7546,
+    "isbn10": "111111111111111111"
+  }
+]
 export { allBooks, latestBooks, trendingBooks, cartProduct, wishList };
 

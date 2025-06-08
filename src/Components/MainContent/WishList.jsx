@@ -1,11 +1,22 @@
-import React, { Component, useState } from 'react'
-import { wishList as initallwishlist } from '../Products/mangaProducts';
+import React, { Component, useEffect, useState } from 'react'
+import { wishList as initallWishlist } from '../Products/mangaProducts';
 import imgNotFound from "/assets/img-notfound.jpg";
 import WishlistCard from '../ProductCard/WishListCard';
 import AddToCart from '../Functions/AddToCart'
 
 function WishList () {
-  const [wishlist, setWishlist] = useState(initallwishlist)
+  const [wishlist, setWishlist] = useState(()=>{
+    const storedList = localStorage.getItem('wishlist');
+    return storedList ? JSON.parse(storedList) : initallWishlist;
+    
+
+  });
+  useEffect(()=>{
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    window.dispatchEvent(new Event("wishlistUpdated"));
+  }, [wishlist])
+
+
   const removeFromWishlist = (id)=>{
     const updatedList = wishlist.filter(book => book.id !== id)
     setWishlist(updatedList)
@@ -13,11 +24,11 @@ function WishList () {
 
  
   return (
-    <div className="p-6 ml-[200px] mt-[200px]">
+    <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">Your Wishlist</h1>
 
       {wishlist.length > 0 ? (
-        <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
           {wishlist.map((book, index) => (
             <WishlistCard
               key={book.id || index}
