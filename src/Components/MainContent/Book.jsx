@@ -15,8 +15,29 @@ import { LiaCertificateSolid } from "react-icons/lia";
 import { RiRefund2Fill } from "react-icons/ri";
 import { FaTruckFast } from "react-icons/fa6";
 import addToWList from "../Functions/addToWishlist";
+import { cartProduct as initialCart } from '../Products/mangaProducts';
+import { LiaGlobeAmericasSolid } from "react-icons/lia";
+import { PiBooksBold } from "react-icons/pi";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
-function Book({onAddtoCart}) {
+
+
+
+
+
+
+
+
+
+
+
+
+function Book({ onAddtoCart }) {
+  const [quantity, setQuantity] = useState(1);
+
   const { id } = useParams()
   const [book, setBook] = useState({})
   const [cartAddedd, setCartAdded] = useState(false)
@@ -42,8 +63,9 @@ function Book({onAddtoCart}) {
       setCartAdded(true);
     }
   }
+
   return (
-    <div className="ml-[50px] mt-[200px]">
+    <div className="ml-[20px] mt-[30px]">
       <div className="flex flex-col">
         {/* book details */}
         <div className="flex">
@@ -51,7 +73,7 @@ function Book({onAddtoCart}) {
           <div>
             <img
               src={book.image}
-              className="w-[200px] h-[300px] rounded-2xl object-cover"
+              className="w-[300px] h-[450px] rounded-2xl object-cover border-1 border-black"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = imgNotFound;
@@ -66,7 +88,7 @@ function Book({onAddtoCart}) {
               <div
                 className="flex flex-col gap-4">
                 <div
-                  className=" flex gap-2 items-baseline"
+                  className=" flex gap-2 items-baseline text-black"
                 >
 
                   <span
@@ -75,14 +97,16 @@ function Book({onAddtoCart}) {
                     {book.name}
                   </span>
 
-                  <span>
-                    {`(${book.language ? book.language : "English"})`}
-                  </span>
 
-                  <span>
+
+                  <span
+                    className="text-[18px] font-bold"
+                  >
                     {`(${book.binding ? book.binding : "Paperback"})`}
                   </span>
-                  <span>
+                  <span
+                    className="text-[18px] font-bold"
+                  >
                     - {book.release ? book.release : "2025"}
                   </span>
 
@@ -90,7 +114,7 @@ function Book({onAddtoCart}) {
 
                 <div className="flex">
                   <div
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 text-black"
                   >
                     <span
                       className="font-semibold text-[18px]"
@@ -157,12 +181,13 @@ function Book({onAddtoCart}) {
                   className="ml-[10px]"
                 >
                   <div
-                    className="flex text-3xl text-red-500 font-semibold font-mono">
-                    ₹{book.price}
+                    className="flex text-3xl text-green-600 font-semibold font-mono">
+                    ₹<span className="text-black">{book.price}</span>
                   </div>
 
                 </div>
 
+                {/* Stock */}
                 <div
                   className="ml-[10px]"
                 >
@@ -180,85 +205,176 @@ function Book({onAddtoCart}) {
                     </div>
                   )}
                 </div>
+
+                {/* Book Descriptions */}
+                <div className="max-w-[600px]">
+                  <div className="flex flex-col gap-3 border-1 border-gray-600 rounded-2xl p-5">
+                    <span
+                      className="text-2xl font-semibold font-[italic] text-[#69385C]"
+                    >
+                      {book.headline ? book.headline : "Random Headline That i made myself"}
+                    </span>
+                    <p className="text-black text-xl font-[cursive]">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Earum facilis ipsa qui ad maxime nobis voluptatibus tempora quasi explicabo laudantium
+                      ratione fuga suscipit, veniam ipsum culpa enim aut eius beatae.
+                    </p>
+                  </div>
+                </div>
+
+                {/* book physical details */}
+                <div className="text-black border-t-2 border-b-2 border-gray-400 px-4 py-6">
+                  <Swiper
+                    modules={[Navigation]}
+                    navigation
+                    spaceBetween={20}
+                    slidesPerView={4}
+                    className="w-full"
+                    breakpoints={{
+                      320: { slidesPerView: 1 },
+                      640: { slidesPerView: 2 },
+                      1024: { slidesPerView: 4 },
+                    }}
+                  >
+                    {[
+                      {
+                        label: 'ISBN-10',
+                        icon: <FaBarcode />,
+                        value: book.isbn10 || '1234567891011',
+                      },
+                      {
+                        label: 'ISBN-13',
+                        icon: <FaBarcode />,
+                        value: book.isbn13 || '1234567891011',
+                      },
+                      {
+                        label: 'Pages',
+                        icon: <HiOutlineDocumentDuplicate />,
+                        value: book.pages || '-',
+                      },
+                      {
+                        label: 'Weight',
+                        icon: <GiWeight />,
+                        value: book.weight || '-',
+                      },
+                      {
+                        label: 'Language',
+                        icon: <LiaGlobeAmericasSolid />,
+                        value: book.language || 'English',
+                      },
+                      book.series && {
+                        label: 'Part of Series',
+                        icon: <PiBooksBold />,
+                        value: book.series,
+                      },
+                    ]
+                      .filter(Boolean)
+                      .map((item, index) => (
+                        <SwiperSlide key={index}>
+                          <div className="flex flex-col justify-center items-center gap-2 p-4 border border-gray-300 rounded-lg bg-white shadow-md text-center min-h-[150px]">
+                            <span className="text-[15px] font-semibold">{item.label}</span>
+                            <div className="text-2xl">{item.icon}</div>
+                            <span className="text-sm font-medium text-gray-700 break-all">{item.value}</span>
+                          </div>
+                        </SwiperSlide>
+                      ))}
+                  </Swiper>
+                </div>
+
+
               </div>
             </div>
           </div>
-        </div>
 
-        {/* book description */}
-        <div className="mt-[50px] px-[100px] mb-[50px]">
-          <div className="border-1 border-gray-600 rounded-2xl p-5">
-            <span
-              className="text-xl font-semibold font-serif text-[#DB5ABA]"
-            >
-              {book.headline ? book.headline : "Random Headline That i made myself"}
-            </span>
-            <p className="font-mono">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Earum facilis ipsa qui ad maxime nobis voluptatibus tempora quasi explicabo laudantium
-              ratione fuga suscipit, veniam ipsum culpa enim aut eius beatae.
-            </p>
+
+          {/* buttons */}
+          <div className='text-black flex items-center max-h-[300px] ml-[30px] mt-[100px]'>
+            <div className="flex flex-col gap-2 border-2 border-gray-200 px-[30px] py-[20px] rounded-lg">
+
+
+              <div>
+                <div
+                  className="w-[250px] border-1 border-gray-200 px-[20px] py-[5px] rounded-full bg-gray-100"
+                >
+                  <span
+                    className="text-[14px] "
+                  >
+                    Quantity:
+                  </span>
+                  <select
+                    value={quantity}
+                    onChange={(e) => setQuantity(parseInt(e.target.value))}
+                    className="ml-2 bgtransparent text-black w-[142px] outline-none"
+                  >
+                    {[...Array(book.stock).keys()].map((_, i) => (
+                      <option key={i + 1} value={i + 1}>
+                        {i + 1}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {!cartAddedd ? (
+                <button className='flex justify-center bg-yellow-400 text-black text-[14px] font-semibold px-6 py-2  w-[250px] hover:bg-yellow-300 rounded-[30px]'
+                  onClick={() => {
+                    AddToCart({ ...book, quantity });     // 💥 pass book here!
+                    handleAddTocart();     // 📦 update UI state
+                  }}
+                >
+                  Add to cart
+                </button>
+              ) : (
+                <span className='flex justify-center text-green-600 font-semibold py-2 text-sm  w-[250px]'>Added to cart</span>
+              )}
+
+              <Link className='flex justify-center  bg-orange-400 text-black text-[14px] font-semibold px-6 py-2 rounded-[30px]  w-[250px] hover:bg-orange-300'
+                to={`/buy/${book.id}`}
+              >
+                Buy Now
+              </Link>
+
+              {/** 
+                {!added && (
+                  <button
+                    className='flex justify-center bg-white text-black text-xl font-semibold px-6 py-2 rounded-md  w-[300px] hover:bg-gray-200'
+                    onClick={()=>{
+                      addToWList(book)
+                      handleAdd()
+                    }}
+                  >
+                    Add to Wishlist
+                  </button>
+                )}
+                {showMessage && (
+                  <span className="flex justify-center text-green-400 font-semibold text-sm  w-[300px]">
+                    ✅ Added to wishlist!
+                  </span>
+                )}
+              */}
+            </div>
+
+
+
           </div>
+
+
+
+
         </div>
 
 
 
-        {/* book physical details */}
-        <div
-          className="flex justify-center "
-        >
-          <div
-            className="flex flex-row justify-center gap-19 border-gray-400 border-t-2 border-b-2 px-[20px] py-[10px] mt-10"
-          >
-            <div className="flex flex-col justify-center items-center gap-3 ">
-              <span>
-                ISBN-10
-              </span>
-              <span className="text-3xl">
-                <FaBarcode />
-              </span>
-              <span>
-                {book.isbn10 ? book.isbn10 : "1234567891011"}
-              </span>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-3">
-              <span>
-                ISBN-13
-              </span>
-              <span className="text-3xl">
-                <FaBarcode />
-              </span>
-              <span>
-                {book.isbn13 ? book.isbn13 : "1234567891011"}
-              </span>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-3">
-              <span>
-                Page No.
-              </span>
-              <span className="text-3xl">
-                <HiOutlineDocumentDuplicate />
-              </span>
-              <span>
-                {book.pages ? book.pages : "-"}
-              </span>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-3">
-              <span>
-                Weight
-              </span>
-              <span className="text-3xl">
-                <GiWeight />
-              </span>
-              <span>
-                {book.weight ? book.weight : "-"}
-              </span>
-            </div>
 
-          </div>
-        </div>
+
+
+
+
+
+
+
         {/* website service quality */}
-        <div className="flex flex-row justify-center gap-20 mt-20">
+        <div className="flex justify-center gap-10 mt-5 ">
           <div className="flex flex-col">
             <span className="flex justify-center text-blue-400 text-3xl font-light">
               <MdOutlineWorkspacePremium />
@@ -293,7 +409,7 @@ function Book({onAddtoCart}) {
           </div>
           <div className="flex flex-col">
             <span className="flex justify-center text-blue-400 text-3xl font-light">
-            <FaTruckFast />
+              <FaTruckFast />
             </span>
             <span className="text-blue-400 text-sm font-semibold">
               Fast delivery
@@ -301,54 +417,9 @@ function Book({onAddtoCart}) {
           </div>
         </div>
 
-        {/* buttons */}
-        <div className='text-black mt-10 flex justify-center'>
-          <div className="flex flex-col gap-2 border border-gray-700 bg-gray-900 px-[80px] py-[50px] rounded-lg">
-
-            <Link className='flex justify-center  bg-green-700 text-xl font-semibold px-6 py-2 rounded-md  w-[300px] hover:bg-green-600'
-              to={`/buy/${book.id}`}
-            >
-              Buy Now
-            </Link>
-
-            {!cartAddedd ? (
-              <button className='flex justify-center bg-yellow-500 text-xl font-semibold px-6 py-2  w-[300px] hover:bg-yellow-400 rounded-md'
-                onClick={() => {
-                  AddToCart(book);     // 💥 pass book here!
-                  handleAddTocart();     // 📦 update UI state
-                }}
-              >
-                Add to cart
-              </button>
-            ) : (
-              <span className='flex justify-center text-green-400 font-semibold py-2 text-sm  w-[300px]'>Added to cart</span>
-            )}
 
 
 
-            {!added && (
-              <button
-                className='flex justify-center bg-white text-black text-xl font-semibold px-6 py-2 rounded-md  w-[300px] hover:bg-gray-200'
-                onClick={()=>{
-                  addToWList(book)
-                  handleAdd()
-                }}
-              >
-                Add to Wishlist
-              </button>
-            )}
-            {showMessage && (
-              <span className="flex justify-center text-green-400 font-semibold text-sm  w-[300px]">
-                ✅ Added to wishlist!
-              </span>
-            )}
-          </div>
-
-
-
-        </div>
-
-        
       </div>
     </div>
   )

@@ -5,6 +5,9 @@ import imgNotFound from "/assets/img-notfound.jpg";
 import emailjs from 'emailjs-com';
 
 function Buy() {
+
+  
+
   const { id } = useParams();
   const [buyBook, setBuyBook] = useState(null);
   const [formData, setFormData] = useState({

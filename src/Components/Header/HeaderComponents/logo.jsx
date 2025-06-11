@@ -1,14 +1,16 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import logo from '/assets/Inkverse.png';
+
 
 function Logo() {
   return (
-    <NavLink to="/home">
+    <Link to="/home">
       <img 
-        src="assets/Inkverse.png"
+        src={logo}
         className='w-[150px] h-[100px]' 
       />
-    </NavLink>
+    </Link>
   )
 }
 

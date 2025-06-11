@@ -23,7 +23,8 @@ const allBooks = [
     "publisher": "Shogakukan",
     "rating": 4.6,
     "ratedBy": 43202,
-    "illustrator": "kartik"
+    "illustrator": "kartik",
+    "series": "Jujutsu Kaisen"
   },
   {
     "id": "c2b6e66f",
