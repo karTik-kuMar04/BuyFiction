@@ -55,7 +55,7 @@ function NavigationBtn() {
 
                   <div className="flex justify-center w-[70px] h-[30px] relative">
                     <div
-                      className="text-2xl "
+                      className="text-2xl text-black"
                     >
                       {icon}
                     </div>
@@ -69,7 +69,7 @@ function NavigationBtn() {
 
                   {label && (
                     <div
-                      className="flex justify-center"
+                      className="flex justify-center text-black"
                     >
                       {label}
                     </div>

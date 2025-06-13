@@ -29,7 +29,7 @@ function SearchBar() {
         onClick={handleSearch}
       >
 
-        <FaSearch className=''/>
+        <FaSearch className='text-black'/>
      
       </button>
     </div>

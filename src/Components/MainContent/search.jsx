@@ -25,7 +25,7 @@ function Search() {
   )
 
   return (
-    <div className='flex flex-col  absolute top-20 w-[1250px]'>
+    <div className='flex flex-col justify-center h-full  top-20 '>
 
       <div className='flex justify-center'>
         {results.length > 0 ?(

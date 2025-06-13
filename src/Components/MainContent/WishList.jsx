@@ -11,10 +11,20 @@ function WishList () {
     
 
   });
-  useEffect(()=>{
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    window.dispatchEvent(new Event("wishlistUpdated"));
-  }, [wishlist])
+  useEffect(() => {
+  const updateWishlist = () => {
+    const storedList = localStorage.getItem('wishlist');
+    setWishlist(storedList ? JSON.parse(storedList) : []);
+  };
+
+  // Listen for localStorage changes
+  window.addEventListener('wishlistUpdated', updateWishlist);
+
+  return () => {
+    window.removeEventListener('wishlistUpdated', updateWishlist);
+  };
+}, []);
+
 
 
   const removeFromWishlist = (id)=>{
@@ -24,7 +34,7 @@ function WishList () {
 
  
   return (
-    <div className="p-6">
+    <div className="p-6 text-black">
       <h1 className="text-3xl font-bold mb-6">Your Wishlist</h1>
 
       {wishlist.length > 0 ? (
@@ -39,7 +49,7 @@ function WishList () {
           ))}
         </div>
       ) : (
-        <p className="text-white text-center text-xl">Your wishlist is empty.</p>
+        <p className="text-black text-center text-xl">Your wishlist is empty.</p>
       )}
 
     </div>

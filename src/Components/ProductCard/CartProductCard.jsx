@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import imgNotFound from "/assets/img-notfound.jpg";
-import { cartProduct } from '../Products/mangaProducts';
 
 function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {
   const handleChange = (e) => {
@@ -9,32 +8,42 @@ function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {
   };
 
   return (
-    <div className="flex w-[100%] border-t-2 border-b-2 border-gray-600 py-6 px-5 rounded-2xl">
-      <Link to={`/book/${book.id}`}>
+    <div className="bg-white shadow-md rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between w-full border border-gray-200">
+      {/* Book Image */}
+      <Link to={`/book/${book.id}`} className="mb-4 md:mb-0">
         <img
           src={book.image}
-          className="w-[150px] h-[200px] rounded-2xl object-cover"
+          alt={book.name}
+          className="w-[120px] h-[170px] object-cover rounded-md"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = imgNotFound;
           }}
-          alt={book.name}
         />
       </Link>
-      <div className='flex flex-row justify-between w-full'>
-        <div className="flex flex-col justify-between ml-[50px]">
-          <div>
-            <Link to={`/book/${book.id}`}><div className="text-white text-2xl font-bold hover:text-blue-400 hover:underline">{book.name}</div></Link>
-            <Link><div className="text-white flex">By: <p className='ml-[10px] text-indigo-500 font-semibold hover:underline'>{book.author}</p></div></Link>
+
+      {/* Book Info */}
+      <div className="flex-1 md:ml-6 text-black w-full">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+          <div className="flex flex-col gap-1">
+            <Link to={`/book/${book.id}`}>
+              <h2 className="text-lg font-bold hover:text-blue-600 hover:underline">
+                {book.name}
+              </h2>
+            </Link>
+            <p className="text-sm text-gray-600">
+              By <span className="font-semibold text-indigo-500">{book.author}</span>
+            </p>
           </div>
 
-          <div className="text-white flex gap-4 items-center">
-            <div>
-              Qty:
+          {/* Quantity and Price */}
+          <div className="flex items-center gap-6 mt-3 md:mt-0">
+            <div className="text-sm">
+              <label className="font-semibold mr-2">Qty:</label>
               <select
                 value={quantity}
                 onChange={handleChange}
-                className="ml-2 bg-gray-800 text-white p-1 rounded"
+                className="border border-gray-300 px-2 py-1 rounded bg-white"
               >
                 {[...Array(book.stock).keys()].map((_, i) => (
                   <option key={i + 1} value={i + 1}>
@@ -43,19 +52,22 @@ function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {
                 ))}
               </select>
             </div>
-            <div className="text-green-400 text-lg font-bold">
-              ₹{quantity > 0 ? book.price * quantity : book.price}
+
+            <div className="text-green-600 font-bold text-lg">
+              ₹{book.price * quantity}
             </div>
           </div>
         </div>
-        <div className='flex items-center mr-[20px]'>
-          <button  
-            className='px-[10px] py-[4px] bg-red-600 text-white font-semibold rounded-md'
-            onClick={() => onRemove(book.id)}
-          >
-            Remove
-          </button>
-        </div>
+      </div>
+
+      {/* Remove Button */}
+      <div className="mt-4 md:mt-0 md:ml-4">
+        <button
+          onClick={() => onRemove(book.id)}
+          className="bg-red-500 hover:bg-red-400 text-white text-sm px-4 py-2 rounded-md font-semibold"
+        >
+          Remove
+        </button>
       </div>
     </div>
   );

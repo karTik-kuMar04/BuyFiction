@@ -9,190 +9,133 @@ import addToWList from '../Functions/addToWishlist';
 
 
 
-function CardType1({book, index}) {
-  
-
+function CardType1({ book, index }) {
   return (
-    <Link to={`/book/${book.id}`} className="no-underline ">
-      <div className="w-[200px] h-full px-[10px] py-[10px] bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300">
-        {/* Book Image */}
-        <div className="flex justify-center">
+    <Link to={`/book/${book.id}`} className="no-underline">
+      <div className="w-[220px] bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border-2 border-gray-200 hover:border-blue-300">
+        {/* Image */}
+        <div className="relative overflow-hidden rounded-t-xl bg-gray-100">
           <img
             src={book.image}
-            className="w-[150px] h-full rounded-md"
             alt={book.name}
+            className="w-full h-[280px] object-cover rounded-t-xl"
             onError={(e) => {
               e.target.onerror = null;
               e.target.src = imgNotFound;
             }}
           />
         </div>
-  
-        {/* Book Details */}
-        <div className="flex flex-col gap-1 font-bold text-black mt-2">
-          {/* Book Name */}
-          <div className="text-center text-sm line-clamp-2 h-[40px]">
+
+        {/* Details */}
+        <div className="flex flex-col p-4 text-black">
+          {/* Book Title */}
+          <h3 className="text-base font-bold text-[#333] line-clamp-2 h-[48px] hover:underline">
             {book.name}
-          </div>
-  
-          {/* Author Name */}
-          <span className="flex justify-center text-xs text-gray-600">
-            {book.author}
-          </span>
-  
-          {/* Star Rating */}
-          <span className="flex justify-center mt-2">
+          </h3>
+
+          {/* Author */}
+          <p className="text-sm text-black font-medium mt-1 truncate">
+            By : <span className='text-blue-600 hover:underline font-mono'>{book.author || 'Unknown'}</span> 
+          </p>
+
+          {/* Rating */}
+          <div className="mt-2">
             <StarRating rating={book.rating} />
-          </span>
-  
+          </div>
+
           {/* Price */}
-          <div className="flex items-center justify-center mt-2">
-            <span className="text-green-600 text-lg font-semibold">₹</span>
-            <p className="text-lg font-semibold">{book.price}</p>
+          <div className="mt-3 text-lg font-semibold text-green-600">
+            ₹{book.price}
           </div>
         </div>
       </div>
     </Link>
   );
-  
 }
 
-function CardType2({book, index, onAddtoCart}) {
-  
-  
-  const [added, setAdded] = useState(false);
-  const [showMessage, setShowMessage] = useState(false) 
-  const [cart, setCart] = useState(0)
-  const [cartAddedd, setCartAdded] = useState(false);
 
+function CardType2({ book }) {
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [wishlistMessage, setWishlistMessage] = useState(false);
 
-  const handleAdd = () => {
-    setAdded(true)
-    setShowMessage(true)
-    setTimeout(() => setShowMessage(false), 2000); 
-  }
+  const handleAddToCart = () => {
+    AddToCart(book);
+    setAddedToCart(true);
+  };
 
-
-  const handleAddTocart = () => {
-    if (!cartAddedd) {
-      onAddtoCart?.() // ✅ call the function from props
-      setCartAdded(true);
-    }
-  }
-  
-
+  const handleAddToWishlist = () => {
+    addToWList(book);
+    setWishlistMessage(true);
+    setTimeout(() => setWishlistMessage(false), 2000);
+  };
 
   return (
-    <div className='  flex flex-row py-6 pl-6' >
-
+    <div className="flex flex-col md:flex-row items-center justify-between bg-white shadow-md border rounded-xl p-4 mb-6 transition hover:shadow-lg gap-10">
+      {/* Image */}
       <Link to={`/book/${book.id}`}>
-        {/* Book Image */}
-        <div>
-          <img src={book.image} className='w-[200px] h-[300px] rounded-2xl' 
-            onError={(e) => { e.target.onerror = null; e.target.src = imgNotFound; }}
-          />
-        </div>
+        <img
+          src={book.image}
+          alt={book.name}
+          className="w-[120px] h-[180px] rounded-md object-cover"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = imgNotFound;
+          }}
+        />
       </Link>
 
-
-      {/* Book Details */}
-      <div className='flex flex-col text-white ml-10 mt-6 border-r w-[400px]'>
-
-        <Link to={`/book/${book.id}`} className="mb-6">
-          {/* Book Name */}
-          <span className='text-2xl text-[#7eb7ad] font-black w-[350px]  hover:underline'>
-            {book.name}
-          </span>
+      {/* Details */}
+      <div className="flex-1 md:ml-6 mt-4 md:mt-0 text-black">
+        <Link to={`/book/${book.id}`}>
+          <h2 className="text-lg md:text-xl font-bold hover:underline hover:text-gray-500">{book.name}</h2>
         </Link>
-        {/* Author Name */}
-        <span className='flex items-baseline font-semibold'>
-          By: <p className='text-[18px] text-cyan-200 font-bold px-[10px]'>
-            {book.author}
-          </p>
-        </span>
-
-        {/* Publisher Name */}
-        <span className='flex items-baseline font-semibold'>
-          Publisher: <p className='text-[18px] text-cyan-200 font-bold px-[10px]'>
-            {book.publisher}
-          </p>
-        </span>
-
-        <div className='flex mt-8'>
-
-          <div className='border-r-1 w-[170px]'>
-
-            {/* Rating in Stars */}
-            <span className='text-xl '>
-              <StarRating rating={book.rating} />
-            </span>
-
-            {/* Price */}
-            <span className='flex items-baseline font-semibold text-[26px] text-green-400 mt-2'>
-              ₹
-              <p className='text-white text-[26px] ml-2'>
-                {book.price}
-              </p>
-            </span>
-
-          </div>
-          <div className=''>
-            <span className='flex ml-5 font-semibold'>Binding:<p className='ml-1.5 text-blue-300 hover:underline cursor-pointer'>{book.binding ? book.binding : "Paperback"}</p></span>
-            <span className='flex ml-5 font-semibold'>Release:<p className='ml-1.5 text-blue-300 hover:underline cursor-pointer'>{book.releaseDate ? book.releaseDate : "Not Available"}</p></span>
-            <span className='flex ml-5 font-semibold'>Language:<p className='ml-1.5 text-blue-300 hover:underline cursor-pointer'>{book.language ? book.language : "English"}</p></span>
-          </div>
-
+        <p className="text-sm text-gray-600 mt-1 ">
+          By <span className="text-blue-700 font-semibold hover:underline cursor-pointer">{book.author}</span>
+        </p>
+        <p className="text-sm text-gray-600 ">
+          Publisher: <span className="text-blue-600 hover:underline cursor-pointer">{book.publisher}</span>
+        </p>
+        <p className="text-sm text-gray-600">
+          Binding: <span className="text-gray-800">{book.binding || "Paperback"}</span> | Language: <span className="text-gray-800">{book.language || "English"}</span>
+        </p>
+        <div className="flex items-center mt-2">
+          <StarRating rating={book.rating} />
         </div>
-
+        <p className="text-lg font-bold text-green-600 mt-1">₹{book.price}</p>
       </div>
 
       {/* Buttons */}
-      <div className='text-white flex flex-col justify-center gap-2 ml-4'>
-        <Link className='text-center bg-green-700 text-xl font-semibold px-6 py-2 rounded-md hover:bg-green-600'
-          to={`/buy/${book.id}`}
-        >
+      <div className="flex flex-col items-center gap-3 mt-4 md:mt-0">
+        <Link to={`/buy/${book.id}`} className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-md font-semibold text-sm w-[140px] text-center">
           Buy Now
         </Link>
 
-        {!cartAddedd ? (
-          <button className='bg-yellow-500 text-xl font-semibold px-6 py-2 hover:bg-yellow-400 rounded-md'
-            onClick={() => {
-              AddToCart(book);     // 💥 pass book here!
-              handleAddTocart();     // 📦 update UI state
-            }}
+        {!addedToCart ? (
+          <button
+            onClick={handleAddToCart}
+            className="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 rounded-md font-semibold text-sm w-[140px]"
           >
-            Add to cart
+            Add to Cart
           </button>
-        ):(
-          <span className='text-green-400 text-center font-semibold py-2 text-sm'>Added to cart</span>
+        ) : (
+          <span className="text-green-500 text-sm font-semibold">✅ Added</span>
         )}
 
-        
-
-        {!added && (
-          <button 
-            className='bg-white text-black text-xl font-semibold px-6 py-2 rounded-md hover:bg-gray-200'
-            onClick={()=>{
-              addToWList(book)
-              handleAdd()
-            }}
+        {!wishlistMessage ? (
+          <button
+            onClick={handleAddToWishlist}
+            className="bg-white border border-gray-300 hover:bg-gray-100 text-black px-4 py-2 rounded-md font-semibold text-sm w-[140px]"
           >
-            Add to Wishlist
+            Wishlist
           </button>
+        ) : (
+          <span className="text-pink-600 text-sm font-semibold">❤️ Added to wishlist</span>
         )}
-        {showMessage && (
-          <span className="text-green-400 text-center font-semibold text-sm">
-            ✅ Added to wishlist!
-          </span>
-        )}
-
-        
-
       </div>
-
     </div>
-  )
+  );
 }
+
 
 
 

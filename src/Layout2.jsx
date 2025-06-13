@@ -10,6 +10,7 @@ function Layout2() {
           <Outlet />
 
       </main>
+      
     </div>
   )
 }

@@ -1,11 +1,11 @@
-import { wishList } from "../Products/mangaProducts"
+export default function addToWList(book) {
+  const storedList = localStorage.getItem('wishlist');
+  const wishlist = storedList ? JSON.parse(storedList) : [];
 
-function addToWList(book) {
-  const existingBook = wishList.find(item => item.id === book.id)
-
-  if(!existingBook){
-    wishList.push(book)
+  const alreadyExists = wishlist.some(item => item.id === book.id);
+  if (!alreadyExists) {
+    wishlist.push(book);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    window.dispatchEvent(new Event("wishlistUpdated")); // 👈 Notify other components
   }
 }
-
-export default addToWList

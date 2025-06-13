@@ -18,17 +18,14 @@ import addToWList from "../Functions/addToWishlist";
 import { cartProduct as initialCart } from '../Products/mangaProducts';
 import { LiaGlobeAmericasSolid } from "react-icons/lia";
 import { PiBooksBold } from "react-icons/pi";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
+import BookPhysicalDetails from "../WebPageProduct/Slider";
 
 
 
-
-
-
-
+// for slider
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 
 
@@ -63,6 +60,19 @@ function Book({ onAddtoCart }) {
       setCartAdded(true);
     }
   }
+
+
+
+
+
+   var settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    
+  };
 
   return (
     <div className="ml-[20px] mt-[30px]">
@@ -222,66 +232,8 @@ function Book({ onAddtoCart }) {
                   </div>
                 </div>
 
-                {/* book physical details */}
-                <div className="text-black border-t-2 border-b-2 border-gray-400 px-4 py-6">
-                  <Swiper
-                    modules={[Navigation]}
-                    navigation
-                    spaceBetween={20}
-                    slidesPerView={4}
-                    className="w-full"
-                    breakpoints={{
-                      320: { slidesPerView: 1 },
-                      640: { slidesPerView: 2 },
-                      1024: { slidesPerView: 4 },
-                    }}
-                  >
-                    {[
-                      {
-                        label: 'ISBN-10',
-                        icon: <FaBarcode />,
-                        value: book.isbn10 || '1234567891011',
-                      },
-                      {
-                        label: 'ISBN-13',
-                        icon: <FaBarcode />,
-                        value: book.isbn13 || '1234567891011',
-                      },
-                      {
-                        label: 'Pages',
-                        icon: <HiOutlineDocumentDuplicate />,
-                        value: book.pages || '-',
-                      },
-                      {
-                        label: 'Weight',
-                        icon: <GiWeight />,
-                        value: book.weight || '-',
-                      },
-                      {
-                        label: 'Language',
-                        icon: <LiaGlobeAmericasSolid />,
-                        value: book.language || 'English',
-                      },
-                      book.series && {
-                        label: 'Part of Series',
-                        icon: <PiBooksBold />,
-                        value: book.series,
-                      },
-                    ]
-                      .filter(Boolean)
-                      .map((item, index) => (
-                        <SwiperSlide key={index}>
-                          <div className="flex flex-col justify-center items-center gap-2 p-4 border border-gray-300 rounded-lg bg-white shadow-md text-center min-h-[150px]">
-                            <span className="text-[15px] font-semibold">{item.label}</span>
-                            <div className="text-2xl">{item.icon}</div>
-                            <span className="text-sm font-medium text-gray-700 break-all">{item.value}</span>
-                          </div>
-                        </SwiperSlide>
-                      ))}
-                  </Swiper>
-                </div>
-
-
+                
+                
               </div>
             </div>
           </div>
@@ -368,9 +320,22 @@ function Book({ onAddtoCart }) {
 
 
 
+        {/* book physical details */}
+        <div
+          className=" text-black "
+        >
+          <div
+            className="flex justify-center "
+          >
+            
+            <BookPhysicalDetails   book={book}/>
+            
+            
 
+          </div>
+        </div>
 
-
+        
 
 
         {/* website service quality */}
@@ -417,6 +382,14 @@ function Book({ onAddtoCart }) {
           </div>
         </div>
 
+        <div className="mt-5 p-4 border-t-2 border-b-2 border-gray-500 w-[90%]">
+          <h3 className="text-2xl text-black font-bold">About the Author</h3>
+          {book.AboutAuthor ? (
+            <p className="text-[14px] font-sans text-black mt-5 ml-10">{book.AboutAuthor}</p>
+          ):(
+            <p className="text-[14px] font-sans text-black mt-5 ml-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea minus quaera</p>
+          )}
+        </div>
 
 
 

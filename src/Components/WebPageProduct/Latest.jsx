@@ -36,6 +36,7 @@ function LatestBooks() {
   };
 
 
+
   
 
   return (
@@ -51,6 +52,7 @@ function LatestBooks() {
       </div>
   )
 }
+
 
 
 export default LatestBooks
