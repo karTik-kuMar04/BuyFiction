@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import AddToCart from '../Functions/AddToCart';
 import imgNotFound from "/assets/img-notfound.jpg";
 import addToWList from '../Functions/addToWishlist';
+import Toast from '../MainContent/Toast';
 
 
 
@@ -55,18 +56,23 @@ function CardType1({ book, index }) {
 
 
 function CardType2({ book }) {
+  const [showToastCart, setShowToastCart] = useState(false);
+  const [showToastWish, setShowToastWish] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
   const [wishlistMessage, setWishlistMessage] = useState(false);
 
   const handleAddToCart = () => {
     AddToCart(book);
     setAddedToCart(true);
+    setShowToastCart(true);
   };
 
   const handleAddToWishlist = () => {
     addToWList(book);
     setWishlistMessage(true);
     setTimeout(() => setWishlistMessage(false), 2000);
+    setShowToastWish(true);
+
   };
 
   return (
@@ -121,6 +127,14 @@ function CardType2({ book }) {
           <span className="text-green-500 text-sm font-semibold">✅ Added</span>
         )}
 
+        {showToastCart && (
+          <Toast
+            message={`${book.name} Added to Cart`}
+            type="success"
+            onClose={() => setShowToastCart(false)}
+          />
+        )}
+
         {!wishlistMessage ? (
           <button
             onClick={handleAddToWishlist}
@@ -130,6 +144,13 @@ function CardType2({ book }) {
           </button>
         ) : (
           <span className="text-pink-600 text-sm font-semibold">❤️ Added to wishlist</span>
+        )}
+        {showToastWish && (
+          <Toast
+            message={`${book.name} Added to WishList`}
+            type="success"
+            onClose={() => setShowToastWish(false)}
+          />
         )}
       </div>
     </div>

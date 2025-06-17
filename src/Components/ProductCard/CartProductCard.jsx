@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import imgNotFound from "/assets/img-notfound.jpg";
+import Toast from'../MainContent/Toast.jsx';
 
-function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {
+function CartProductCard({ book, quantity, onQuantityChange, onRemove,}) {
+  
   const handleChange = (e) => {
     onQuantityChange(book.id, parseInt(e.target.value));
   };
@@ -32,7 +34,7 @@ function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {
               </h2>
             </Link>
             <p className="text-sm text-gray-600">
-              By <span className="font-semibold text-indigo-500">{book.author}</span>
+              By <span className="font-semibold text-indigo-500 cursor-pointer hover:underline">{book.author}</span>
             </p>
           </div>
 
@@ -54,7 +56,9 @@ function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {
             </div>
 
             <div className="text-green-600 font-bold text-lg">
-              ₹{book.price * quantity}
+              ₹{(Number(book?.price) || 0) * (Number(quantity) || 1)}
+
+
             </div>
           </div>
         </div>
@@ -69,6 +73,7 @@ function CartProductCard({ book, quantity, onQuantityChange, onRemove }) {
           Remove
         </button>
       </div>
+      
     </div>
   );
 }

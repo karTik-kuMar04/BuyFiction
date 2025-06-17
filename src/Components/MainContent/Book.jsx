@@ -225,9 +225,7 @@ function Book({ onAddtoCart }) {
                       {book.headline ? book.headline : "Random Headline That i made myself"}
                     </span>
                     <p className="text-black text-xl font-[cursive]">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Earum facilis ipsa qui ad maxime nobis voluptatibus tempora quasi explicabo laudantium
-                      ratione fuga suscipit, veniam ipsum culpa enim aut eius beatae.
+                      {book.description ? book.description : "Lorem ipsum dolor sit amet consectetur adipisicing elit.Earum facilis ipsa qui ad maxime nobis voluptatibus tempora quasi explicabo laudantium ratione fuga suscipit, veniam ipsum culpa enim aut eius beatae."}
                     </p>
                   </div>
                 </div>
@@ -258,7 +256,7 @@ function Book({ onAddtoCart }) {
                     onChange={(e) => setQuantity(parseInt(e.target.value))}
                     className="ml-2 bgtransparent text-black w-[142px] outline-none"
                   >
-                    {[...Array(book.stock).keys()].map((_, i) => (
+                    {Array.from({ length: book.stock }, (_, i) => (
                       <option key={i + 1} value={i + 1}>
                         {i + 1}
                       </option>
@@ -382,14 +380,15 @@ function Book({ onAddtoCart }) {
           </div>
         </div>
 
-        <div className="mt-5 p-4 border-t-2 border-b-2 border-gray-500 w-[90%]">
-          <h3 className="text-2xl text-black font-bold">About the Author</h3>
-          {book.AboutAuthor ? (
-            <p className="text-[14px] font-sans text-black mt-5 ml-10">{book.AboutAuthor}</p>
-          ):(
-            <p className="text-[14px] font-sans text-black mt-5 ml-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea minus quaera</p>
-          )}
+        <div className="mt-10 px-6 py-4 bg-gray-50 rounded-lg shadow-md max-w-4xl mx-auto border border-gray-300">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
+            About the Author
+          </h2>
+          <p className="text-md md:text-lg text-gray-700 leading-relaxed">
+            {book.AboutAuthor}
+          </p>
         </div>
+
 
 
 
